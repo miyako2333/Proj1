@@ -1,0 +1,178 @@
+<head>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+  <h3>Bin Xu bx83</h3>
+  <div>
+    <svg id="figure1" height="550" width="1050"></svg>
+  </div>
+
+  <script type="text/javascript">
+    data = [{
+        "x": 1.0,
+        "y": 9.0
+      },
+      {
+        "x": 1.5,
+        "y": 6.0
+      },
+      {
+        "x": 2.5,
+        "y": 4.0
+      },
+      {
+        "x": 4.0,
+        "y": 2.0
+      },
+      {
+        "x": 5.0,
+        "y": 1.6
+      },
+      {
+        "x": 6.0,
+        "y": 2.4
+      },
+      {
+        "x": 7.0,
+        "y": 3.0
+      },
+      {
+        "x": 8.0,
+        "y": 3.4
+      },
+      {
+        "x": 9.0,
+        "y": 3.6
+      }
+    ]
+
+    const svg = d3.select("svg#figure1");
+    const width = svg.attr("width");
+    const height = svg.attr("height");
+    const margin = {
+      top: 0,
+      right: 0,
+      bottom: 50,
+      left: 50
+    };
+    const chartWidth = width - margin.left - margin.right;
+    const chartHeight = height - margin.top - margin.bottom;
+    const xExtent = d3.extent(data, d => d['x']);
+    const yExtent = d3.extent(data, d => d['y']);
+    const xScale = d3.scaleLinear().domain([0,10]).range([0, chartWidth]);
+    const yScale = d3.scaleLinear().domain([0,10]).range([chartHeight, 0]);
+    let annotations = svg.append("g").attr("id", "annotations");
+    let chartArea = svg.append("g").attr("id", "points")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      // Create the background Male-Female Rectangle Chart
+      var dict = new Array();
+      for (var i = 0; i <= 15; i++) {
+        for (var j = 0; j <= 8; j++) {
+          dict.push({
+            "a": i,
+            "b": j
+          });
+        }
+      }
+      console.log(dict);
+
+      const rectLength = 40;
+      const aExtent = d3.extent(dict, d => d['a']);
+      const bExtent = d3.extent(dict, d => d['b']);
+      const aScale = d3.scaleLinear().domain(aExtent).range([rectLength, chartWidth-rectLength]);
+      const bScale = d3.scaleLinear().domain(bExtent).range([chartHeight-rectLength, rectLength]);
+
+      console.log(d => aScale(d['a']));
+      console.log(data[1]["y"]);
+      function judge(jx, jy) {
+        if (jy >= yPos[search(jx)]){
+          return "red";
+        }
+        else {
+          return "blue";
+        }
+      }
+
+      var xPos = new Array();
+      var yPos = new Array();
+      for (var i = 0; i <= 8; i ++) {
+        xPos.push(Math.floor(xScale(data[i]["x"])));
+        yPos.push(yScale(data[i]["y"]));
+      }
+      console.log(xPos);
+      console.log(xPos.indexOf(150) );
+
+      function search(x) {
+        x = parseInt(x);
+        for (var i=0; i<=100; i++){
+          x = x - 1;
+          if (xPos.indexOf(x) != -1){
+            return xPos.indexOf(x);
+          }
+        }
+      }
+
+      var test = new Array();
+      for (var i = 0; i <= 15; i++) {
+        for (var j = 0; j <= 8; j++) {
+          test.push(judge(aScale(i),bScale(j)));
+          chartArea.append("rect")
+            .attr("width", rectLength)
+            .attr("height", rectLength)
+            .attr("x", aScale(i))
+            .attr("y", bScale(j))
+            .attr("fill",judge(aScale(i),bScale(j)))
+            .attr("opacity",0.5);
+        }
+      }// Draw the axis
+
+
+    let leftAxis = d3.axisLeft(yScale)
+    let leftGridlines = d3.axisLeft(yScale)
+      .tickSize(-chartWidth - 10)
+      .tickFormat("")
+    annotations.append("g")
+      .attr("class", "y axis")
+      .attr("transform", `translate(${margin.left-10},${margin.top})`)
+      .call(leftAxis)
+    annotations.append("g")
+      .attr("class", "y gridlines")
+      .attr("transform", `translate(${margin.left-10},${margin.top})`)
+      .call(leftGridlines);
+
+    // X axis
+    let bottomAxis = d3.axisBottom(xScale)
+    let bottomGridlines = d3.axisBottom(xScale)
+      .tickSize(-chartHeight - 10)
+      .tickFormat("")
+    annotations.append("g")
+      .attr("class", "x axis")
+      .attr("transform", `translate(${margin.left},${chartHeight+margin.top+10})`)
+      .call(bottomAxis);
+    annotations.append("g")
+      .attr("class", "x gridlines")
+      .attr("transform", `translate(${margin.left},${chartHeight+margin.top+10})`)
+      .call(bottomGridlines);
+
+      showCircles()
+
+      function showCircles() {
+        const colorScale = new Array();
+        chartArea.selectAll("circle").data(data)
+          .join("circle")
+          .attr("r", 10)
+          .attr("cx", d => xScale(d['x']))
+          .attr("cy", d => yScale(d['y']))
+          .attr("fill", "Black");
+      }
+
+
+
+
+  </script>
+
+
+
+</body>
