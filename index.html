@@ -8,7 +8,6 @@
   </div>
 
   <script type="text/javascript">
-
     const svg = d3.select("svg#figure1");
     const width = svg.attr("width");
     const height = svg.attr("height");
@@ -27,134 +26,141 @@
         const yearExtent = d3.extent(data, d => d['Year']);
 
         var fList = new Array();
-        var allList =  new Array();
-        var perList =  new Array();
-        var yearList =  new Array();
-        for (var j=yearExtent[0]; j<yearExtent[1]; j = j + 1){
-          if (data.filter(d => d["Year"] == j).length != 0){
-          var fResult = data.filter(d => d["Year"] == j & d["Sex"] == "F").length;
-          var allResult = data.filter(d => d["Year"] == j).length;
-          allList.push(allResult);
-          fList.push(fResult);
-          perList.push(fResult / allResult * 100);
-          yearList.push(j);
+        var allList = new Array();
+        var perList = new Array();
+        var yearList = new Array();
+        for (var j = yearExtent[0]; j <= yearExtent[1]; j = j + 1) {
+          if (data.filter(d => d["Year"] == j).length != 0) {
+            var fResult = data.filter(d => d["Year"] == j & d["Sex"] == "F").length;
+            var allResult = data.filter(d => d["Year"] == j).length;
+            allList.push(allResult);
+            fList.push(fResult);
+            perList.push(fResult / allResult * 100);
+            yearList.push(j);
+          }
         }
-        }
-        console.log(perList);
+        console.log(allList);
 
         const fePerAll_Extent = d3.extent(perList);
         const yearScale = d3.scaleLinear().domain(yearExtent).range([0, chartWidth]);
-        const fePerAll_Scale = d3.scaleLinear().domain([0,50]).range([chartHeight, 0]);
+        const fePerAll_Scale = d3.scaleLinear().domain([0, 50]).range([chartHeight, 0]);
 
-    let annotations = svg.append("g").attr("id", "annotations");
-    let chartArea = svg.append("g").attr("id", "points")
-      .attr("transform", `translate(${margin.left},${margin.top})`);
+        let annotations = svg.append("g").attr("id", "annotations");
+        let chartArea = svg.append("g").attr("id", "points")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
 
-          // Create the background Male-Female Rectangle Chart
-          const rectNumX = 30;
-          const rectNumY = 16;
-          var dict = new Array();
-          for (var i = 0; i <= rectNumX; i++) {
-            for (var j = 0; j <= rectNumY; j++) {
-              dict.push({
-                "a": i,
-                "b": j
-              });
+        // Create the background Male-Female Rectangle Chart
+        const rectNumX = 30;
+        const rectNumY = 16;
+        var dict = new Array();
+        for (var i = 0; i <= rectNumX; i++) {
+          for (var j = 0; j <= rectNumY; j++) {
+            dict.push({
+              "a": i,
+              "b": j
+            });
+          }
+        }
+
+        const rectLength = 25;
+        const aExtent = d3.extent(dict, d => d['a']);
+        const bExtent = d3.extent(dict, d => d['b']);
+        const aScale = d3.scaleLinear().domain(aExtent).range([rectLength / 2, chartWidth - rectLength / 2]);
+        const bScale = d3.scaleLinear().domain(bExtent).range([chartHeight - rectLength / 2, rectLength / 2]);
+
+        function judge(jx, jy) {
+          if (jy >= yPos[search(jx)]) {
+            return "red";
+          } else {
+            return "blue";
+          }
+        }
+
+        var xPos = new Array();
+        var yPos = new Array();
+        for (var i = 0; i <= yearList.length; i++) {
+          xPos.push(Math.floor(yearScale(yearList[i])));
+          yPos.push(fePerAll_Scale(perList[i]));
+        }
+        console.log(yearList.length);
+
+        function search(x) {
+          x = parseInt(x);
+          for (var i = 0; i <= 100; i++) {
+            x = x - 1;
+            if (xPos.indexOf(x) != -1) {
+              return xPos.indexOf(x);
             }
           }
+        }
 
-          const rectLength = 25;
-          const aExtent = d3.extent(dict, d => d['a']);
-          const bExtent = d3.extent(dict, d => d['b']);
-          const aScale = d3.scaleLinear().domain(aExtent).range([rectLength/2, chartWidth-rectLength/2]);
-          const bScale = d3.scaleLinear().domain(bExtent).range([chartHeight-rectLength/2, rectLength/2]);
+        specColumn = [5, 11, 12];
 
-          function judge(jx, jy) {
-            if (jy >= yPos[search(jx)]) {
-              return "red";
-            } else {
-              return "blue";
-            }
+        function specColor(i, j) {
+          if (!specColumn.includes(i)) {
+            return judge(aScale(i), bScale(j));
           }
+          return "lightgrey";
+        }
 
-          var xPos = new Array();
-          var yPos = new Array();
-          for (var i = 0; i <= yearList.length; i++) {
-            xPos.push(Math.floor(yearScale(yearList[i])));
-            yPos.push(fePerAll_Scale(perList[i]));
+        var test = new Array();
+        for (var i = 0; i <= rectNumX; i++) {
+          for (var j = 0; j <= rectNumY; j++) {
+            chartArea.append("rect")
+              .attr("width", rectLength)
+              .attr("height", rectLength)
+              .attr("x", aScale(i) - rectLength / 2)
+              .attr("y", bScale(j) - rectLength / 2)
+              .attr("fill", specColor(i, j))
+              .attr("opacity", 0.4);
           }
-          console.log(yearList.length);
+        } // Draw the axis
 
-          function search(x) {
-            x = parseInt(x);
-            for (var i = 0; i <= 100; i++) {
-              x = x - 1;
-              if (xPos.indexOf(x) != -1) {
-                return xPos.indexOf(x);
-              }
-            }
-          }
-
-          specColumn = [5, 11, 12];
-          function specColor(i,j){
-            if (!specColumn.includes(i)) {
-              return judge(aScale(i), bScale(j));
-            }
-            return "lightgrey";
-          }
-
-          var test = new Array();
-          for (var i = 0; i <= rectNumX; i++) {
-            for (var j = 0; j <= rectNumY; j++) {
-                chartArea.append("rect")
-                  .attr("width", rectLength)
-                  .attr("height", rectLength)
-                  .attr("x", aScale(i)-rectLength/2)
-                  .attr("y", bScale(j)-rectLength/2)
-                  .attr("fill", specColor(i,j))
-                  .attr("opacity", 0.4);
-            }
-          } // Draw the axis
-
-          for(var i=0; i<yearList.length; i++) {
-            chartArea.append("circle")
-            .attr("cx",yearScale(yearList[i]))
-            .attr("cy",fePerAll_Scale(perList[i]))
-            .attr("r",5)
+        for (var i = 0; i < yearList.length; i++) {
+          chartArea.append("circle")
+            .attr("cx", yearScale(yearList[i]))
+            .attr("cy", fePerAll_Scale(perList[i]))
+            .attr("r", 5)
             .attr("fill", "red");
-          }
+        }
 
-          let leftAxis = d3.axisLeft(fePerAll_Scale)
-          let leftGridlines = d3.axisLeft(fePerAll_Scale)
-            .tickSize(-chartWidth - 10)
-            .tickFormat("")
-          annotations.append("g")
-            .attr("class", "y axis")
-            .attr("transform", `translate(${margin.left-10},${margin.top})`)
-            .call(leftAxis)
-          annotations.append("g")
-            .attr("class", "y gridlines")
-            .attr("transform", `translate(${margin.left-10},${margin.top})`)
-            .attr("color","lightgrey")
-            .call(leftGridlines);
+        let leftAxis = d3.axisLeft(fePerAll_Scale)
+          .tickFormat(function(d) { return d + "%"; });
+        let leftGridlines = d3.axisLeft(fePerAll_Scale)
+          .tickSize(-chartWidth - 10)
+          .tickFormat("")
+        annotations.append("g")
+          .attr("class", "y axis")
+          .attr("transform", `translate(${margin.left-10},${margin.top})`)
+          .call(leftAxis)
+        annotations.append("g")
+          .attr("class", "y gridlines")
+          .attr("transform", `translate(${margin.left-10},${margin.top})`)
+          .attr("color", "lightgrey")
+          .call(leftGridlines);
 
-          // X axis
-          let bottomAxis = d3.axisBottom(yearScale)
-          let bottomGridlines = d3.axisBottom(yearScale)
-            .tickSize(-chartHeight - 10)
-            .tickFormat("")
-          annotations.append("g")
-            .attr("class", "x axis")
-            .attr("transform", `translate(${margin.left},${chartHeight+margin.top+10})`)
-            .call(bottomAxis);
-          annotations.append("g")
-            .attr("class", "x gridlines")
-            .attr("transform", `translate(${margin.left},${chartHeight+margin.top+10})`)
-            .attr("color","lightgrey")
-            .call(bottomGridlines);
+        // X axis
+        var bottomLabel = new Array;
+        for (var i=yearExtent[0]; i<=2014; i=i+8){bottomLabel.push(i);}
+        console.log(bottomLabel);
+        let bottomAxis = d3.axisBottom(yearScale)
+          .tickValues(bottomLabel)
+          .tickFormat(d3.format("d"));
+        let bottomGridlines = d3.axisBottom(yearScale)
+          .tickSize(-chartHeight - 10)
+          .tickFormat("")
+        annotations.append("g")
+          .attr("class", "x axis")
+          .attr("transform", `translate(${margin.left},${chartHeight+margin.top+10})`)
+          .call(bottomAxis);
+        annotations.append("g")
+          .attr("class", "x gridlines")
+          .attr("transform", `translate(${margin.left},${chartHeight+margin.top+10})`)
+          .attr("color", "lightgrey")
+          .call(bottomGridlines);
 
 
-         })
+      })
   </script>
 
 
