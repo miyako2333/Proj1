@@ -5,6 +5,7 @@
 <body>
   <div>
     <svg id="figure1" height="550" width="1050"></svg>
+    <svg id="Legend1" height="550" width="150"></svg>
   </div>
 
   <script type="text/javascript">
@@ -39,11 +40,147 @@
             yearList.push(j);
           }
         }
-        console.log(allList);
+        // console.log(allList);
+
+
+        // let Asia = Array(35).fill(0)
+        let Europe = Array(35).fill(0)
+        let Africa = Array(35).fill(0)
+        // let South_America = Array(35).fill(0)
+        let America = Array(35).fill(0)
+        // let North_America = Array(35).fill(0)
+        // let Oceania = Array(35).fill(0)
+        let Asian_Pacific = Array(35).fill(0)
+        // let AsiaF = Array(35).fill(0)
+        let EuropeF = Array(35).fill(0)
+        let AfricaF = Array(35).fill(0)
+        // let South_AmericaF = Array(35).fill(0)
+        // let North_AmericaF = Array(35).fill(0)
+        let AmericaF = Array(35).fill(0)
+        // let OceaniaF = Array(35).fill(0)
+        let Asian_PacificF = Array(35).fill(0)
+        var Years = [1896, 1900, 1904, 1906, 1908, 1912, 1920, 1924, 1928, 1932, 1936,
+          1948, 1952, 1956, 1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988,
+          1992, 1994, 1996, 1998, 2000, 2002, 2004, 2006, 2008, 2010, 2012,
+          2014, 2016
+        ]
+        var Summer_years = []
+        for (let year in Years) {
+          if (Years[year] % 4 == 0)
+            Summer_years.push(Years[year])
+        }
+        console.log(Summer_years)
+        for (let year in Years) {
+          // year = parseInt(year)
+          // console.log(typeof year, year)
+          // Asia[year] = (data.filter(function(d) {
+          //   return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Asia')
+          // }).length)
+          Europe[year] = (data.filter(function(d) {
+            return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Europe')
+          }).length)
+          // Africa[year] = (data.filter(function(d) {
+          //   return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Africa')
+          // }).length)
+          // South_America[year] = (data.filter(function(d) {
+          //   return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'South America')
+          // }).length)
+          // North_America[year] = (data.filter(function(d) {
+          //   return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'North America')
+          // }).length)
+          America[year] = (data.filter(function(d) {
+            return (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'North America') | (d['continent'] == 'South America') )
+          }).length)
+          // Oceania[year] = (data.filter(function(d) {
+          //   return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Oceania')
+          // }).length)
+
+          Asian_Pacific[year] = (data.filter(function(d) {
+            return (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'Oceania') | (d['continent'] == 'Asia') )
+          }).length)
+
+          // AsiaF[year] = (data.filter(function(d) {
+          //   return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Asia')
+          // }).length)
+          EuropeF[year] = (data.filter(function(d) {
+            return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Europe')
+          }).length)
+          // AfricaF[year] = (data.filter(function(d) {
+          //   return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Africa')
+          // }).length)
+          // South_AmericaF[year] = (data.filter(function(d) {
+          //   return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'South America')
+          // }).length)
+          // North_AmericaF[year] = (data.filter(function(d) {
+          //   return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'North America')
+          // }).length)
+          // OceaniaF[year] = (data.filter(function(d) {
+          //   return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Oceania')
+          // }).length)
+          Asian_PacificF[year] = (data.filter(function(d) {
+            return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'Oceania') | (d['continent'] == 'Asia'))
+          }).length)
+          AmericaF[year] = (data.filter(function(d) {
+            return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'North America') | (d['continent'] == 'South America'))
+          }).length)
+        }
+
+        for (let year in Summer_years) {
+
+          Africa[year] = (data.filter(function(d) {
+            return (d['Year'] == parseInt(Summer_years[year])) && (d['continent'] == 'Africa')
+          }).length)
+
+          AfricaF[year] = (data.filter(function(d) {
+            return (d['Sex'] == 'F') && (d['Year'] == parseInt(Summer_years[year])) && (d['continent'] == 'Africa')
+          }).length)
+
+        }
+
+
+
+
+
+        // console.log(Asia,AsiaF)
+        // let AsiaRate = []
+        let EuropeRate = []
+        let AfricaRate = []
+        // let South_AmericaRate = []
+        // let North_AmericaRate = []
+        let AmericaRate = []
+        let Asian_PacificRate = []
+        // let OceaniaRate = []
+        for (let year in Years) {
+          // AsiaRate.push((AsiaF[year] / Asia[year])? (AsiaF[year] / Asia[year]):0)
+          EuropeRate.push((EuropeF[year] / Europe[year])? (EuropeF[year] / Europe[year]):0)
+          // AfricaRate.push((AfricaF[year] / Africa[year])? (AfricaF[year] / Africa[year]):0)
+          // South_AmericaRate.push((South_AmericaF[year] / South_America[year])? (South_AmericaF[year] / South_America[year]):0)
+          // North_AmericaRate.push((North_AmericaF[year] / North_America[year])? (North_AmericaF[year] / North_America[year]):0)
+          // OceaniaRate.push((OceaniaF[year] / Oceania[year])? (OceaniaF[year] / Oceania[year]):0)
+          AmericaRate.push((AmericaF[year] / America[year])? (AmericaF[year] / America[year]):0)
+          Asian_PacificRate.push((Asian_PacificF[year] / Asian_Pacific[year])? (Asian_PacificF[year] / Asian_Pacific[year]):0)
+
+        }
+
+
+        for (let year in Summer_years) {
+          AfricaRate.push((AfricaF[year] / Africa[year])? (AfricaF[year] / Africa[year]):0)
+
+
+        }
+        // console.log(North_America)
+
+
+
+
+
+
+
+
 
         const fePerAll_Extent = d3.extent(perList);
         const yearScale = d3.scaleLinear().domain(yearExtent).range([0, chartWidth]);
-        const fePerAll_Scale = d3.scaleLinear().domain([0, 50]).range([chartHeight, 0]);
+        const fePerAll_Scale = d3.scaleLinear().domain([0, 55]).range([chartHeight, 0]);
 
         let annotations = svg.append("g").attr("id", "annotations");
         let chartArea = svg.append("g").attr("id", "points")
@@ -70,9 +207,9 @@
 
         function judge(jx, jy) {
           if (jy >= yPos[search(jx)]) {
-            return "red";
+            return "#ff7c7c";
           } else {
-            return "blue";
+            return "#60acfc";
           }
         }
 
@@ -121,11 +258,14 @@
             .attr("cx", yearScale(yearList[i]))
             .attr("cy", fePerAll_Scale(perList[i]))
             .attr("r", 5)
-            .attr("fill", "red");
+            .attr("fill", "red")
+            .attr('opacity', 0);
         }
 
         let leftAxis = d3.axisLeft(fePerAll_Scale)
-          .tickFormat(function(d) { return d + "%"; });
+          .tickFormat(function(d) {
+            return d + "%";
+          });
         let leftGridlines = d3.axisLeft(fePerAll_Scale)
           .tickSize(-chartWidth - 10)
           .tickFormat("")
@@ -141,7 +281,9 @@
 
         // X axis
         var bottomLabel = new Array;
-        for (var i=yearExtent[0]; i<=2016; i=i+8){bottomLabel.push(i);}
+        for (var i = yearExtent[0]; i <= 2016; i = i + 8) {
+          bottomLabel.push(i);
+        }
         console.log(bottomLabel);
         let bottomAxis = d3.axisBottom(yearScale)
           .tickValues(bottomLabel)
@@ -159,6 +301,66 @@
           .attr("color", "lightgrey")
           .call(bottomGridlines);
 
+        function line_chart(lst, color) {
+          for (var i = 0; i < yearList.length - 1; i++) {
+            chartArea.append("line")
+              .attr("stroke", color)
+              .attr("stroke-width", 3)
+              .attr("x1", yearScale(yearList[i]))
+              .attr("y1", fePerAll_Scale(lst[i] * 100))
+              .attr("x2", yearScale(yearList[i + 1]))
+              .attr("y2", fePerAll_Scale(lst[i + 1] * 100));
+          }
+          for (var i = 0; i < yearList.length; i++) {
+            chartArea.append("circle")
+              .attr("cx", yearScale(yearList[i]))
+              .attr("cy", fePerAll_Scale(lst[i] * 100))
+              .attr("r", 5)
+              .attr("fill", color);
+          }
+        }
+
+        for (var i = 0; i < Summer_years.length - 1; i++) {
+          chartArea.append("line")
+            .attr("stroke", '#9287e7')
+            .attr("stroke-width", 3)
+            .attr("x1", yearScale(Summer_years[i]))
+            .attr("y1", fePerAll_Scale(AfricaRate[i] * 100))
+            .attr("x2", yearScale(Summer_years[i + 1]))
+            .attr("y2", fePerAll_Scale(AfricaRate[i + 1] * 100));
+        }
+        for (var i = 0; i < Summer_years.length; i++) {
+          chartArea.append("circle")
+            .attr("cx", yearScale(Summer_years[i]))
+            .attr("cy", fePerAll_Scale(AfricaRate[i] * 100))
+            .attr("r", 5)
+            .attr("fill", '#9287e7');
+        }
+
+
+        // line_chart(AsiaRate, '#FFC300')
+        line_chart(EuropeRate, '#32d3eb')
+        // line_chart(AfricaRate, '#003CFF')
+        // line_chart(North_AmericaRate, 'blue')
+        // line_chart(South_AmericaRate, 'steelblue')
+        line_chart(Asian_PacificRate, '#5bc49f')
+        line_chart(AmericaRate, '#feb64d')
+
+
+
+        const svg2 = d3.select("svg#Legend1");
+        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 5).attr("y", 65).style("fill", "#ff7c7c").attr("opacity", 0.4);
+        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 5).attr("y", 95).style("fill", "#60acfc").attr("opacity", 0.4);
+        svg2.append("circle").attr("cx", 10).attr("cy", 130).attr("r", 6).style("fill", '#32d3eb');
+        svg2.append("circle").attr("cx", 10).attr("cy", 160).attr("r", 6).style("fill", '#5bc49f');
+        svg2.append("circle").attr("cx", 10).attr("cy", 190).attr("r", 6).style("fill", '#feb64d');
+        svg2.append("circle").attr("cx", 10).attr("cy", 210).attr("r", 6).style("fill", '#9287e7');
+        svg2.append("text").attr("x", 23).attr("y", 71).text("Overall Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", "#ff7c7c").attr("opacity", 1);
+        svg2.append("text").attr("x", 23).attr("y", 101).text("Overall Male %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", "#60acfc").attr("opacity", 1);
+        svg2.append("text").attr("x", 23).attr("y", 131).text("Europe Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#32d3eb').attr("opacity", 1);
+        svg2.append("text").attr("x", 23).attr("y", 161).text("Asian Pacific Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#5bc49f').attr("opacity", 1);
+        svg2.append("text").attr("x", 23).attr("y", 191).text("America Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#feb64d').attr("opacity", 1);
+        svg2.append("text").attr("x", 23).attr("y", 211).text("Africa Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#9287e7').attr("opacity", 1);
 
       })
   </script>
