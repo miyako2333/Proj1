@@ -4,13 +4,12 @@
 
 <body>
   <div>
-    <svg id="figure1" height="550" width="1050"></svg>
-    <svg id="Legend1" height="550" width="150"></svg>
+    <svg id="figure1" height="550" width="1250"></svg>
   </div>
 
   <script type="text/javascript">
     const svg = d3.select("svg#figure1");
-    const width = svg.attr("width");
+    const width = svg.attr("width")-200;
     const height = svg.attr("height");
     const margin = {
       top: 10,
@@ -299,7 +298,7 @@
           .attr("class", "x gridlines")
           .attr("transform", `translate(${margin.left},${chartHeight+margin.top+10})`)
           .attr("color", "lightgrey")
-          .call(bottomGridlines);
+          // .call(bottomGridlines);
 
         function line_chart(lst, color) {
           for (var i = 0; i < yearList.length - 1; i++) {
@@ -346,21 +345,20 @@
         line_chart(Asian_PacificRate, '#5bc49f')
         line_chart(AmericaRate, '#feb64d')
 
-
-
-        const svg2 = d3.select("svg#Legend1");
-        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 5).attr("y", 65).style("fill", "#ff7c7c").attr("opacity", 0.4);
-        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 5).attr("y", 95).style("fill", "#60acfc").attr("opacity", 0.4);
-        svg2.append("circle").attr("cx", 10).attr("cy", 130).attr("r", 6).style("fill", '#32d3eb');
-        svg2.append("circle").attr("cx", 10).attr("cy", 160).attr("r", 6).style("fill", '#5bc49f');
-        svg2.append("circle").attr("cx", 10).attr("cy", 190).attr("r", 6).style("fill", '#feb64d');
-        svg2.append("circle").attr("cx", 10).attr("cy", 210).attr("r", 6).style("fill", '#9287e7');
-        svg2.append("text").attr("x", 23).attr("y", 71).text("Overall Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", "#ff7c7c").attr("opacity", 1);
-        svg2.append("text").attr("x", 23).attr("y", 101).text("Overall Male %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", "#60acfc").attr("opacity", 1);
-        svg2.append("text").attr("x", 23).attr("y", 131).text("Europe Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#32d3eb').attr("opacity", 1);
-        svg2.append("text").attr("x", 23).attr("y", 161).text("Asian Pacific Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#5bc49f').attr("opacity", 1);
-        svg2.append("text").attr("x", 23).attr("y", 191).text("America Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#feb64d').attr("opacity", 1);
-        svg2.append("text").attr("x", 23).attr("y", 211).text("Africa Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#9287e7').attr("opacity", 1);
+        svg.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055).attr("y", 35).style("fill", "lightgrey").attr("opacity", 0.4);
+        svg.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055).attr("y", 65).style("fill", "#ff7c7c").attr("opacity", 0.4);
+        svg.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055).attr("y", 95).style("fill", "#60acfc").attr("opacity", 0.4);
+        svg.append("circle").attr("cx", 1060).attr("cy", 130).attr("r", 6).style("fill", '#32d3eb');
+        svg.append("circle").attr("cx", 1060).attr("cy", 160).attr("r", 6).style("fill", '#5bc49f');
+        svg.append("circle").attr("cx", 1060).attr("cy", 190).attr("r", 6).style("fill", '#feb64d');
+        svg.append("circle").attr("cx", 1060).attr("cy", 220).attr("r", 6).style("fill", '#9287e7');
+        svg.append("text").attr("x", 1073).attr("y", 41).text("War Time").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", "lightgrey").attr("opacity", 1);
+        svg.append("text").attr("x", 1073).attr("y", 71).text("Overall Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", "#ff7c7c").attr("opacity", 1);
+        svg.append("text").attr("x", 1073).attr("y", 101).text("Overall Male %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", "#60acfc").attr("opacity", 1);
+        svg.append("text").attr("x", 1073).attr("y", 131).text("Europe Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#32d3eb').attr("opacity", 1);
+        svg.append("text").attr("x", 1073).attr("y", 161).text("Asian Pacific Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#5bc49f').attr("opacity", 1);
+        svg.append("text").attr("x", 1073).attr("y", 191).text("America Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#feb64d').attr("opacity", 1);
+        svg.append("text").attr("x", 1073).attr("y", 221).text("Africa Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#9287e7').attr("opacity", 1);
 
       })
   </script>
