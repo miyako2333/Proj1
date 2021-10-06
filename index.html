@@ -13,8 +13,8 @@
     const width = svg.attr("width");
     const height = svg.attr("height");
     const margin = {
-      top: 0,
-      right: 0,
+      top: 10,
+      right: 10,
       bottom: 50,
       left: 50
     };
@@ -44,7 +44,7 @@
 
         const fePerAll_Extent = d3.extent(perList);
         const yearScale = d3.scaleLinear().domain(yearExtent).range([0, chartWidth]);
-        const fePerAll_Scale = d3.scaleLinear().domain([0,100]).range([chartHeight, 0]);
+        const fePerAll_Scale = d3.scaleLinear().domain([0,50]).range([chartHeight, 0]);
 
     let annotations = svg.append("g").attr("id", "annotations");
     let chartArea = svg.append("g").attr("id", "points")
@@ -66,8 +66,8 @@
           const rectLength = 25;
           const aExtent = d3.extent(dict, d => d['a']);
           const bExtent = d3.extent(dict, d => d['b']);
-          const aScale = d3.scaleLinear().domain(aExtent).range([rectLength, chartWidth - rectLength]);
-          const bScale = d3.scaleLinear().domain(bExtent).range([chartHeight - rectLength, rectLength]);
+          const aScale = d3.scaleLinear().domain(aExtent).range([rectLength/2, chartWidth-rectLength/2]);
+          const bScale = d3.scaleLinear().domain(bExtent).range([chartHeight-rectLength/2, rectLength/2]);
 
           function judge(jx, jy) {
             if (jy >= yPos[search(jx)]) {
@@ -95,18 +95,24 @@
             }
           }
 
+          specColumn = [5, 11, 12];
+          function specColor(i,j){
+            if (!specColumn.includes(i)) {
+              return judge(aScale(i), bScale(j));
+            }
+            return "lightgrey";
+          }
+
           var test = new Array();
           for (var i = 0; i <= rectNumX; i++) {
             for (var j = 0; j <= rectNumY; j++) {
-              test.push(judge(aScale(i), bScale(j)));
-              chartArea.append("rect")
-                .attr("width", rectLength)
-                .attr("height", rectLength)
-                .attr("x", aScale(i))
-                .attr("y", bScale(j))
-                .attr("fill", judge(aScale(i), bScale(j)))
-                .attr("opacity", 0.4);
-              console.log(aScale(i));
+                chartArea.append("rect")
+                  .attr("width", rectLength)
+                  .attr("height", rectLength)
+                  .attr("x", aScale(i)-rectLength/2)
+                  .attr("y", bScale(j)-rectLength/2)
+                  .attr("fill", specColor(i,j))
+                  .attr("opacity", 0.4);
             }
           } // Draw the axis
 
