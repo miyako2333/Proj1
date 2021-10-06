@@ -179,15 +179,15 @@
 
         const fePerAll_Extent = d3.extent(perList);
         const yearScale = d3.scaleLinear().domain(yearExtent).range([0, chartWidth]);
-        const fePerAll_Scale = d3.scaleLinear().domain([0, 55]).range([chartHeight, 0]);
+        const fePerAll_Scale = d3.scaleLinear().domain([0, 50]).range([chartHeight, 0]);
 
         let annotations = svg.append("g").attr("id", "annotations");
         let chartArea = svg.append("g").attr("id", "points")
           .attr("transform", `translate(${margin.left},${margin.top})`);
 
         // Create the background Male-Female Rectangle Chart
-        const rectNumX = 30;
-        const rectNumY = 16;
+        const rectNumX = 35;
+        const rectNumY = 19;
         var dict = new Array();
         for (var i = 0; i <= rectNumX; i++) {
           for (var j = 0; j <= rectNumY; j++) {
@@ -197,12 +197,12 @@
             });
           }
         }
-
-        const rectLength = 25;
+        const interval = 5;
+        const rectLength = 20;
         const aExtent = d3.extent(dict, d => d['a']);
         const bExtent = d3.extent(dict, d => d['b']);
         const aScale = d3.scaleLinear().domain(aExtent).range([rectLength / 2, chartWidth - rectLength / 2]);
-        const bScale = d3.scaleLinear().domain(bExtent).range([chartHeight - rectLength / 2, rectLength / 2]);
+        const bScale = d3.scaleLinear().domain(bExtent).range([chartHeight - rectLength / 2, rectLength / 2 + interval]);
 
         function judge(jx, jy) {
           if (jy >= yPos[search(jx)]) {
@@ -276,7 +276,7 @@
           .attr("class", "y gridlines")
           .attr("transform", `translate(${margin.left-10},${margin.top})`)
           .attr("color", "lightgrey")
-          .call(leftGridlines);
+          // .call(leftGridlines);
 
         // X axis
         var bottomLabel = new Array;
