@@ -1,15 +1,62 @@
 <head>
   <script src="https://d3js.org/d3.v7.min.js"></script>
+
+  <style>
+    h1 {
+      background-color: #60acfc;
+      padding:25px 50px;
+      font-size: 36px;
+      text-indent:50px;
+      font-family:"Arial Black", Gadget, sans-serif	;
+    }
+
+    h1.headline {
+      margin-top: 100px;
+      margin-bottom: 0px;
+      margin-right: calc(15vw);
+      margin-left: calc(15vw);
+      /* opacity: 0.6; */
+    }
+
+    p {
+      margin-top: 20px;
+      margin-bottom: 50px;
+      margin-right: calc(15vw);
+      margin-left: calc(15vw);
+      font-style:italic;
+    }
+
+    p.stageOne {
+      background-color: #ff7c7c;
+      padding:15px 50px;
+      font-size: 24px;
+    }
+    p.stageTwo {
+      background-color: white;
+      font-size: 24px;
+    }
+  </style>
 </head>
 
 <body>
+
+  <h1 class="headline"> The Gender Investigation of Olympics </h1>
+
+  <p class="stageOne"> The Female Athletes In Olympics </p>
+  <p class="stageTwo"> The figure aims to show the female attendees percentage in the Olympic Games based on different regions. </p>
+
+
   <div>
-    <svg id="figure1" height="550" width="1250"></svg>
-    <svg id="figure2" height="550" width="1250" style="margin-top:20px"></svg>
+    <svg id="figure1" height="550" width="1450"></svg>
+    <p class="stageOne"> Year Distribution... </p>
+    <p class="stageTwo"> Something... </p>
+    <svg id="figure2" height="550" width="1450" style="margin-top:20px"></svg>
   </div>
 
   <script type="text/javascript">
     const svg = d3.select("svg#figure1");
+    //svg.attr("transform", `translate(${margin.left},${margin.top})`);
+
     const width = svg.attr("width") - 200;
     const height = svg.attr("height");
     const margin = {
@@ -69,14 +116,14 @@
           if (Years[year] % 4 == 0)
             Summer_years.push(Years[year])
         }
-        console.log(Summer_years)
+        //console.log(Summer_years)
         for (let year in Years) {
           // year = parseInt(year)
           // console.log(typeof year, year)
           // Asia[year] = (data.filter(function(d) {
           //   return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Asia')
           // }).length)
-          Europe[year] = (data.filter(function (d) {
+          Europe[year] = (data.filter(function(d) {
             return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Europe')
           }).length)
           // Africa[year] = (data.filter(function(d) {
@@ -88,21 +135,21 @@
           // North_America[year] = (data.filter(function(d) {
           //   return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'North America')
           // }).length)
-          America[year] = (data.filter(function (d) {
+          America[year] = (data.filter(function(d) {
             return (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'North America') | (d['continent'] == 'South America'))
           }).length)
           // Oceania[year] = (data.filter(function(d) {
           //   return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Oceania')
           // }).length)
 
-          Asian_Pacific[year] = (data.filter(function (d) {
+          Asian_Pacific[year] = (data.filter(function(d) {
             return (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'Oceania') | (d['continent'] == 'Asia'))
           }).length)
 
           // AsiaF[year] = (data.filter(function(d) {
           //   return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Asia')
           // }).length)
-          EuropeF[year] = (data.filter(function (d) {
+          EuropeF[year] = (data.filter(function(d) {
             return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Europe')
           }).length)
           // AfricaF[year] = (data.filter(function(d) {
@@ -117,21 +164,21 @@
           // OceaniaF[year] = (data.filter(function(d) {
           //   return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Oceania')
           // }).length)
-          Asian_PacificF[year] = (data.filter(function (d) {
+          Asian_PacificF[year] = (data.filter(function(d) {
             return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'Oceania') | (d['continent'] == 'Asia'))
           }).length)
-          AmericaF[year] = (data.filter(function (d) {
+          AmericaF[year] = (data.filter(function(d) {
             return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'North America') | (d['continent'] == 'South America'))
           }).length)
         }
 
         for (let year in Summer_years) {
 
-          Africa[year] = (data.filter(function (d) {
+          Africa[year] = (data.filter(function(d) {
             return (d['Year'] == parseInt(Summer_years[year])) && (d['continent'] == 'Africa')
           }).length)
 
-          AfricaF[year] = (data.filter(function (d) {
+          AfricaF[year] = (data.filter(function(d) {
             return (d['Sex'] == 'F') && (d['Year'] == parseInt(Summer_years[year])) && (d['continent'] == 'Africa')
           }).length)
 
@@ -187,7 +234,7 @@
           .attr("transform", `translate(${margin.left},${margin.top})`);
 
         // Create the background Male-Female Rectangle Chart
-        const rectNumX = 35;
+        const rectNumX = 40;
         const rectNumY = 19;
         var dict = new Array();
         for (var i = 0; i <= rectNumX; i++) {
@@ -219,7 +266,7 @@
           xPos.push(Math.floor(yearScale(yearList[i])));
           yPos.push(fePerAll_Scale(perList[i]));
         }
-        console.log(yearList.length);
+        //console.log(yearList.length);
 
         function search(x) {
           x = parseInt(x);
@@ -263,7 +310,7 @@
         }
 
         let leftAxis = d3.axisLeft(fePerAll_Scale)
-          .tickFormat(function (d) {
+          .tickFormat(function(d) {
             return d + "%";
           });
         let leftGridlines = d3.axisLeft(fePerAll_Scale)
@@ -284,7 +331,7 @@
         for (var i = yearExtent[0]; i <= 2016; i = i + 8) {
           bottomLabel.push(i);
         }
-        console.log(bottomLabel);
+        //console.log(bottomLabel);
         let bottomAxis = d3.axisBottom(yearScale)
           .tickValues(bottomLabel)
           .tickFormat(d3.format("d"));
@@ -346,45 +393,56 @@
         line_chart(Asian_PacificRate, '#5bc49f')
         line_chart(AmericaRate, '#feb64d')
 
-        svg.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055).attr("y", 35).style("fill", "lightgrey").attr("opacity", 0.4);
-        svg.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055).attr("y", 65).style("fill", "#ff7c7c").attr("opacity", 0.4);
-        svg.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055).attr("y", 95).style("fill", "#60acfc").attr("opacity", 0.4);
-        svg.append("circle").attr("cx", 1060).attr("cy", 130).attr("r", 6).style("fill", '#32d3eb');
-        svg.append("circle").attr("cx", 1060).attr("cy", 160).attr("r", 6).style("fill", '#5bc49f');
-        svg.append("circle").attr("cx", 1060).attr("cy", 190).attr("r", 6).style("fill", '#feb64d');
-        svg.append("circle").attr("cx", 1060).attr("cy", 220).attr("r", 6).style("fill", '#9287e7');
-        svg.append("text").attr("x", 1073).attr("y", 41).text("War Time").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", "lightgrey").attr("opacity", 1);
-        svg.append("text").attr("x", 1073).attr("y", 71).text("Overall Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", "#ff7c7c").attr("opacity", 1);
-        svg.append("text").attr("x", 1073).attr("y", 101).text("Overall Male %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", "#60acfc").attr("opacity", 1);
-        svg.append("text").attr("x", 1073).attr("y", 131).text("Europe Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#32d3eb').attr("opacity", 1);
-        svg.append("text").attr("x", 1073).attr("y", 161).text("Asian Pacific Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#5bc49f').attr("opacity", 1);
-        svg.append("text").attr("x", 1073).attr("y", 191).text("America Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#feb64d').attr("opacity", 1);
-        svg.append("text").attr("x", 1073).attr("y", 221).text("Africa Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#9287e7').attr("opacity", 1);
+        const trans = 200;
+        svg.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055+trans).attr("y", 35).style("fill", "lightgrey").attr("opacity", 0.4);
+        svg.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055+trans).attr("y", 65).style("fill", "#ff7c7c").attr("opacity", 0.4);
+        svg.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055+trans).attr("y", 95).style("fill", "#60acfc").attr("opacity", 0.4);
+        svg.append("circle").attr("cx", 1060+trans).attr("cy", 130).attr("r", 6).style("fill", '#32d3eb');
+        svg.append("circle").attr("cx", 1060+trans).attr("cy", 160).attr("r", 6).style("fill", '#5bc49f');
+        svg.append("circle").attr("cx", 1060+trans).attr("cy", 190).attr("r", 6).style("fill", '#feb64d');
+        svg.append("circle").attr("cx", 1060+trans).attr("cy", 220).attr("r", 6).style("fill", '#9287e7');
+        svg.append("text").attr("x", 1073+trans).attr("y", 41).text("War Time").style("font-size", "15px").style("font-weight", "600").attr("alignment-baseline", "middle").attr("fill", "lightgrey").attr("opacity", 1);
+        svg.append("text").attr("x", 1073+trans).attr("y", 71).text("Overall Female %").style("font-weight", "600").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", "#ff7c7c").attr("opacity", 1);
+        svg.append("text").attr("x", 1073+trans).attr("y", 101).text("Overall Male %").style("font-weight", "600").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", "#60acfc").attr("opacity", 1);
+        svg.append("text").attr("x", 1073+trans).attr("y", 131).text("Europe Female %").style("font-weight", "600").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#32d3eb').attr("opacity", 1);
+        svg.append("text").attr("x", 1073+trans).attr("y", 161).text("Asian Pacific Female %").style("font-weight", "600").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#5bc49f').attr("opacity", 1);
+        svg.append("text").attr("x", 1073+trans).attr("y", 191).text("America Female %").style("font-weight", "600").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#feb64d').attr("opacity", 1);
+        svg.append("text").attr("x", 1073+trans).attr("y", 221).text("Africa Female %").style("font-weight", "600").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#9287e7').attr("opacity", 1);
+
+
+        svg.attr("transform", "translate(" + (document.body.clientWidth - width - 200) / 2 + "," + margin.top + ")");
 
       });
 
     d3.csv("athlete_events.csv", d3.autoType)
       .then((data) => {
-        console.log(data);
+        //console.log(data);
 
         let fData = data.filter((item) => {
-          if (item['Age'] != "NA" && item['Season'] == "Summer" && item['Sex'] == "F"
-            && (item['Year'] == "1908" || item['Year'] == "1920" || item['Year'] == "1932" || item['Year'] == "1948" || item['Year'] == "1956" || item['Year'] == "1968" || item['Year'] == "1980" || item['Year'] == "1992" || item['Year'] == "2004" || item['Year'] == "2016")) {
+          if (item['Age'] != "NA" && item['Season'] == "Summer" && item['Sex'] == "F" &&
+            (item['Year'] == "1908" || item['Year'] == "1920" || item['Year'] == "1932" || item['Year'] == "1948" || item['Year'] == "1956" || item['Year'] == "1968" || item['Year'] == "1980" || item['Year'] == "1992" || item['Year'] ==
+              "2004" || item['Year'] == "2016")) {
             return item;
           }
         });
 
         let mData = data.filter((item) => {
-          if (item['Age'] != "NA" && item['Season'] == "Summer" && item['Sex'] == "M"
-            && (item['Year'] == "1896" || item['Year'] == "1908" || item['Year'] == "1920" || item['Year'] == "1932" || item['Year'] == "1948" || item['Year'] == "1956" || item['Year'] == "1968" || item['Year'] == "1980" || item['Year'] == "1992" || item['Year'] == "2004" || item['Year'] == "2016")) {
+          if (item['Age'] != "NA" && item['Season'] == "Summer" && item['Sex'] == "M" &&
+            (item['Year'] == "1896" || item['Year'] == "1908" || item['Year'] == "1920" || item['Year'] == "1932" || item['Year'] == "1948" || item['Year'] == "1956" || item['Year'] == "1968" || item['Year'] == "1980" || item['Year'] ==
+              "1992" || item['Year'] == "2004" || item['Year'] == "2016")) {
             return item;
           }
         });
 
         const svg2 = d3.select("svg#figure2");
-        const width2 = svg2.attr("width");
+        const width2 = svg2.attr("width") - 200;
         const height2 = svg2.attr("height");
-        const margin2 = { top: 10, right: 20, bottom: 50, left: 50 };
+        const margin2 = {
+          top: 10,
+          right: 20,
+          bottom: 50,
+          left: 50
+        };
         const chartWidth2 = width2 - margin2.left - margin2.right;
         const chartHeight2 = height2 - margin2.top - margin2.bottom;
         const chartArea2 = svg2.append('g').attr('transform', `translate(${margin2.left},${margin2.top})`);
@@ -407,11 +465,9 @@
           if (i == 1944) {
             bottomLabel2.push(1948);
             bottomLabel3.push(1948);
-          }
-          else if(i == 1896){
+          } else if (i == 1896) {
             bottomLabel2.push(i);
-          }
-          else{
+          } else {
             bottomLabel2.push(i);
             bottomLabel3.push(i);
           }
@@ -449,36 +505,69 @@
 
         let fBoxArray = [];
         let mBoxArray = [];
-        groupByFemaleAge.forEach(function (key) {
-          console.log(key);
-          var boxValue = d3.rollup(key, function (d) {
-            console.log(d);
-            q1 = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), .25)
-            median = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), .5)
-            q3 = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), .75)
+        groupByFemaleAge.forEach(function(key) {
+          //console.log(key);
+          var boxValue = d3.rollup(key, function(d) {
+            //console.log(d);
+            q1 = d3.quantile(d.map(function(g) {
+              return g.Age;
+            }).sort(d3.ascending), .25)
+            median = d3.quantile(d.map(function(g) {
+              return g.Age;
+            }).sort(d3.ascending), .5)
+            q3 = d3.quantile(d.map(function(g) {
+              return g.Age;
+            }).sort(d3.ascending), .75)
             interQuantileRange = q3 - q1
-            min = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), 0)
-            max = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), 1)
-            return ({ q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max })
+            min = d3.quantile(d.map(function(g) {
+              return g.Age;
+            }).sort(d3.ascending), 0)
+            max = d3.quantile(d.map(function(g) {
+              return g.Age;
+            }).sort(d3.ascending), 1)
+            return ({
+              q1: q1,
+              median: median,
+              q3: q3,
+              interQuantileRange: interQuantileRange,
+              min: min,
+              max: max
+            })
           });
           fBoxArray.push(boxValue);
         })
 
-        groupByMaleAge.forEach(function (key) {
-          console.log(key);
-          var boxValue = d3.rollup(key, function (d) {
-            console.log(d);
-            q1 = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), .25)
-            median = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), .5)
-            q3 = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), .75)
-            min = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), 0)
-            max = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), 1)
-            return ({ q1: q1, median: median, q3: q3, min: min, max: max })
+        groupByMaleAge.forEach(function(key) {
+          //console.log(key);
+          var boxValue = d3.rollup(key, function(d) {
+            //console.log(d);
+            q1 = d3.quantile(d.map(function(g) {
+              return g.Age;
+            }).sort(d3.ascending), .25)
+            median = d3.quantile(d.map(function(g) {
+              return g.Age;
+            }).sort(d3.ascending), .5)
+            q3 = d3.quantile(d.map(function(g) {
+              return g.Age;
+            }).sort(d3.ascending), .75)
+            min = d3.quantile(d.map(function(g) {
+              return g.Age;
+            }).sort(d3.ascending), 0)
+            max = d3.quantile(d.map(function(g) {
+              return g.Age;
+            }).sort(d3.ascending), 1)
+            return ({
+              q1: q1,
+              median: median,
+              q3: q3,
+              min: min,
+              max: max
+            })
           });
           mBoxArray.push(boxValue);
         })
-        console.log(fBoxArray);
-        console.log(mBoxArray);
+        //console.log(fBoxArray);
+        //console.log(mBoxArray);
 
         var fStat = new Map();
         var mStat = new Map();
@@ -490,8 +579,8 @@
         }
 
 
-        console.log(fStat);
-        console.log(mStat);
+        //console.log(fStat);
+        //console.log(mStat);
 
         var boxWidth = 40
 
@@ -521,7 +610,7 @@
           .attr("y1", d => yScale(d[1]["min"]))
           .attr("y2", d => yScale(d[1]["max"]))
           .attr("stroke", "#d95757")
-          .attr("stroke-width","5")
+          .attr("stroke-width", "5")
           .style("width", 40);
 
         //male
@@ -535,7 +624,7 @@
           .attr("y1", d => yScale(d[1]["min"]))
           .attr("y2", d => yScale(d[1]["max"]))
           .attr("stroke", "#009aab")
-          .attr("stroke-width","5")
+          .attr("stroke-width", "5")
           .style("width", 40);
 
 
@@ -595,14 +684,14 @@
           .attr("stroke", "black")
           .style("width", 80)
 
-        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 1180).attr("y", 25).style("fill", "pink").attr("opacity", 1);
-        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 1180).attr("y", 55).style("fill", "lightblue").attr("opacity", 1);
-        svg2.append("text").attr("x", 1195).attr("y", 31).text("Female").style("font-size", "15px").style("font-weight", "600").attr("alignment-baseline", "middle").attr("fill", "#d95757").attr("opacity", 1);
-        svg2.append("text").attr("x", 1195).attr("y", 61).text("Male").style("font-size", "15px").style("font-weight", "600").attr("alignment-baseline", "middle").attr("fill", "#009aab").attr("opacity", 1);
+          const trans = 200;
+        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055+trans).attr("y", 25).style("fill", "pink").attr("opacity", 1);
+        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055+trans).attr("y", 55).style("fill", "lightblue").attr("opacity", 1);
+        svg2.append("text").attr("x", 1073+trans).attr("y", 31).text("Female").style("font-size", "15px").style("font-weight", "600").attr("alignment-baseline", "middle").attr("fill", "#d95757").attr("opacity", 1);
+        svg2.append("text").attr("x", 1073+trans).attr("y", 61).text("Male").style("font-size", "15px").style("font-weight", "600").attr("alignment-baseline", "middle").attr("fill", "#009aab").attr("opacity", 1);
 
+        svg2.attr("transform", "translate(" + (document.body.clientWidth - width - 200) / 2 + "," + margin.top + ")");
       });
-
-
   </script>
 
 
