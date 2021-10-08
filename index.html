@@ -5,11 +5,12 @@
 <body>
   <div>
     <svg id="figure1" height="550" width="1250"></svg>
+    <svg id="figure2" height="550" width="1250" style="margin-top:20px"></svg>
   </div>
 
   <script type="text/javascript">
     const svg = d3.select("svg#figure1");
-    const width = svg.attr("width")-200;
+    const width = svg.attr("width") - 200;
     const height = svg.attr("height");
     const margin = {
       top: 10,
@@ -20,7 +21,7 @@
     const chartWidth = width - margin.left - margin.right;
     const chartHeight = height - margin.top - margin.bottom;
 
-    d3.json("../swift_version.json", d3.autoType)
+    d3.json("swift_version.json", d3.autoType)
       .then((data) => {
 
         const yearExtent = d3.extent(data, d => d['Year']);
@@ -75,7 +76,7 @@
           // Asia[year] = (data.filter(function(d) {
           //   return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Asia')
           // }).length)
-          Europe[year] = (data.filter(function(d) {
+          Europe[year] = (data.filter(function (d) {
             return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Europe')
           }).length)
           // Africa[year] = (data.filter(function(d) {
@@ -87,21 +88,21 @@
           // North_America[year] = (data.filter(function(d) {
           //   return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'North America')
           // }).length)
-          America[year] = (data.filter(function(d) {
-            return (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'North America') | (d['continent'] == 'South America') )
+          America[year] = (data.filter(function (d) {
+            return (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'North America') | (d['continent'] == 'South America'))
           }).length)
           // Oceania[year] = (data.filter(function(d) {
           //   return (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Oceania')
           // }).length)
 
-          Asian_Pacific[year] = (data.filter(function(d) {
-            return (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'Oceania') | (d['continent'] == 'Asia') )
+          Asian_Pacific[year] = (data.filter(function (d) {
+            return (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'Oceania') | (d['continent'] == 'Asia'))
           }).length)
 
           // AsiaF[year] = (data.filter(function(d) {
           //   return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Asia')
           // }).length)
-          EuropeF[year] = (data.filter(function(d) {
+          EuropeF[year] = (data.filter(function (d) {
             return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Europe')
           }).length)
           // AfricaF[year] = (data.filter(function(d) {
@@ -116,21 +117,21 @@
           // OceaniaF[year] = (data.filter(function(d) {
           //   return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && (d['continent'] == 'Oceania')
           // }).length)
-          Asian_PacificF[year] = (data.filter(function(d) {
+          Asian_PacificF[year] = (data.filter(function (d) {
             return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'Oceania') | (d['continent'] == 'Asia'))
           }).length)
-          AmericaF[year] = (data.filter(function(d) {
+          AmericaF[year] = (data.filter(function (d) {
             return (d['Sex'] == 'F') && (d['Year'] == parseInt(Years[year])) && ((d['continent'] == 'North America') | (d['continent'] == 'South America'))
           }).length)
         }
 
         for (let year in Summer_years) {
 
-          Africa[year] = (data.filter(function(d) {
+          Africa[year] = (data.filter(function (d) {
             return (d['Year'] == parseInt(Summer_years[year])) && (d['continent'] == 'Africa')
           }).length)
 
-          AfricaF[year] = (data.filter(function(d) {
+          AfricaF[year] = (data.filter(function (d) {
             return (d['Sex'] == 'F') && (d['Year'] == parseInt(Summer_years[year])) && (d['continent'] == 'Africa')
           }).length)
 
@@ -151,19 +152,19 @@
         // let OceaniaRate = []
         for (let year in Years) {
           // AsiaRate.push((AsiaF[year] / Asia[year])? (AsiaF[year] / Asia[year]):0)
-          EuropeRate.push((EuropeF[year] / Europe[year])? (EuropeF[year] / Europe[year]):0)
+          EuropeRate.push((EuropeF[year] / Europe[year]) ? (EuropeF[year] / Europe[year]) : 0)
           // AfricaRate.push((AfricaF[year] / Africa[year])? (AfricaF[year] / Africa[year]):0)
           // South_AmericaRate.push((South_AmericaF[year] / South_America[year])? (South_AmericaF[year] / South_America[year]):0)
           // North_AmericaRate.push((North_AmericaF[year] / North_America[year])? (North_AmericaF[year] / North_America[year]):0)
           // OceaniaRate.push((OceaniaF[year] / Oceania[year])? (OceaniaF[year] / Oceania[year]):0)
-          AmericaRate.push((AmericaF[year] / America[year])? (AmericaF[year] / America[year]):0)
-          Asian_PacificRate.push((Asian_PacificF[year] / Asian_Pacific[year])? (Asian_PacificF[year] / Asian_Pacific[year]):0)
+          AmericaRate.push((AmericaF[year] / America[year]) ? (AmericaF[year] / America[year]) : 0)
+          Asian_PacificRate.push((Asian_PacificF[year] / Asian_Pacific[year]) ? (Asian_PacificF[year] / Asian_Pacific[year]) : 0)
 
         }
 
 
         for (let year in Summer_years) {
-          AfricaRate.push((AfricaF[year] / Africa[year])? (AfricaF[year] / Africa[year]):0)
+          AfricaRate.push((AfricaF[year] / Africa[year]) ? (AfricaF[year] / Africa[year]) : 0)
 
 
         }
@@ -262,7 +263,7 @@
         }
 
         let leftAxis = d3.axisLeft(fePerAll_Scale)
-          .tickFormat(function(d) {
+          .tickFormat(function (d) {
             return d + "%";
           });
         let leftGridlines = d3.axisLeft(fePerAll_Scale)
@@ -270,13 +271,13 @@
           .tickFormat("")
         annotations.append("g")
           .attr("class", "y axis")
-          .attr("transform", `translate(${margin.left-10},${margin.top})`)
+          .attr("transform", `translate(${margin.left - 10},${margin.top})`)
           .call(leftAxis)
         annotations.append("g")
           .attr("class", "y gridlines")
-          .attr("transform", `translate(${margin.left-10},${margin.top})`)
+          .attr("transform", `translate(${margin.left - 10},${margin.top})`)
           .attr("color", "lightgrey")
-          // .call(leftGridlines);
+        // .call(leftGridlines);
 
         // X axis
         var bottomLabel = new Array;
@@ -292,13 +293,13 @@
           .tickFormat("")
         annotations.append("g")
           .attr("class", "x axis")
-          .attr("transform", `translate(${margin.left},${chartHeight+margin.top+10})`)
+          .attr("transform", `translate(${margin.left},${chartHeight + margin.top + 10})`)
           .call(bottomAxis);
         annotations.append("g")
           .attr("class", "x gridlines")
-          .attr("transform", `translate(${margin.left},${chartHeight+margin.top+10})`)
+          .attr("transform", `translate(${margin.left},${chartHeight + margin.top + 10})`)
           .attr("color", "lightgrey")
-          // .call(bottomGridlines);
+        // .call(bottomGridlines);
 
         function line_chart(lst, color) {
           for (var i = 0; i < yearList.length - 1; i++) {
@@ -359,10 +360,265 @@
         svg.append("text").attr("x", 1073).attr("y", 161).text("Asian Pacific Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#5bc49f').attr("opacity", 1);
         svg.append("text").attr("x", 1073).attr("y", 191).text("America Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#feb64d').attr("opacity", 1);
         svg.append("text").attr("x", 1073).attr("y", 221).text("Africa Female %").style("font-size", "15px").attr("alignment-baseline", "middle").attr("fill", '#9287e7').attr("opacity", 1);
-        
-      })
+
+      });
+
+    d3.csv("athlete_events.csv", d3.autoType)
+      .then((data) => {
+        console.log(data);
+
+        let fData = data.filter((item) => {
+          if (item['Age'] != "NA" && item['Season'] == "Summer" && item['Sex'] == "F"
+            && (item['Year'] == "1908" || item['Year'] == "1920" || item['Year'] == "1932" || item['Year'] == "1948" || item['Year'] == "1956" || item['Year'] == "1968" || item['Year'] == "1980" || item['Year'] == "1992" || item['Year'] == "2004" || item['Year'] == "2016")) {
+            return item;
+          }
+        });
+
+        let mData = data.filter((item) => {
+          if (item['Age'] != "NA" && item['Season'] == "Summer" && item['Sex'] == "M"
+            && (item['Year'] == "1896" || item['Year'] == "1908" || item['Year'] == "1920" || item['Year'] == "1932" || item['Year'] == "1948" || item['Year'] == "1956" || item['Year'] == "1968" || item['Year'] == "1980" || item['Year'] == "1992" || item['Year'] == "2004" || item['Year'] == "2016")) {
+            return item;
+          }
+        });
+
+        const svg2 = d3.select("svg#figure2");
+        const width2 = svg2.attr("width");
+        const height2 = svg2.attr("height");
+        const margin2 = { top: 10, right: 20, bottom: 50, left: 50 };
+        const chartWidth2 = width2 - margin2.left - margin2.right;
+        const chartHeight2 = height2 - margin2.top - margin2.bottom;
+        const chartArea2 = svg2.append('g').attr('transform', `translate(${margin2.left},${margin2.top})`);
+
+        // const yearExtent2 = d3.extent(newData, d => d['Year']);
+        // const ageExtent = d3.extent(newData, d => d['Age']);
+        // console.log(ageExtent);
+        const xScale = d3.scaleLinear().domain([1892, 2024]).range([0, chartWidth2]);
+        const yScale = d3.scaleLinear().domain([7, 100]).range([chartHeight2, 0]);
+
+        // let bottomAxis = d3.axisBottom(xScale);
+        // svg2.append("g")
+        //   .attr("class", "x axis")
+        //   .attr('transform', `translate(${margin2.left},${chartHeight2 + margin2.top})`)
+        //   .call(bottomAxis);
+
+        var bottomLabel2 = new Array;
+        var bottomLabel3 = new Array;
+        for (var i = 1896; i <= 2016; i = i + 12) {
+          if (i == 1944) {
+            bottomLabel2.push(1948);
+            bottomLabel3.push(1948);
+          }
+          else if(i == 1896){
+            bottomLabel2.push(i);
+          }
+          else{
+            bottomLabel2.push(i);
+            bottomLabel3.push(i);
+          }
+        }
+
+        let bottomAxis2 = d3.axisBottom(xScale).tickValues(bottomLabel2);
+        svg2.append("g")
+          .attr("class", "x axis")
+          .attr('transform', `translate(${margin2.left},${chartHeight2 + margin2.top + 10})`)
+          .call(bottomAxis2);
+
+        let leftAxis2 = d3.axisLeft(yScale);
+        //console.log(leftAxis);
+        svg2.append("g")
+          .attr("class", "y axis")
+          .attr('transform', `translate(${margin2.left - 10},${margin2.top})`)
+          .call(leftAxis2);
+
+        let bottomGridlines2 = d3.axisBottom(xScale).ticks(9).tickValues(bottomLabel2).tickFormat("").tickSize(-chartHeight2 - 10);
+        svg2.append("g")
+          .attr("class", "x gridlines")
+          .attr('transform', `translate(${margin2.left},${margin2.top + chartHeight2})`)
+          .call(bottomGridlines2);
+
+        let leftGridlines2 = d3.axisLeft(yScale).ticks(18).tickFormat("").tickSize(-chartWidth2 - 10);
+        svg2.append("g")
+          .attr("class", "y gridlines")
+          .attr('transform', `translate(${margin2.left},${margin2.top})`)
+          .call(leftGridlines2);
+
+        chartArea2.raise();
+
+        var groupByFemaleAge = d3.group(fData, d => d.Year);
+        var groupByMaleAge = d3.group(mData, d => d.Year);
+
+        let fBoxArray = [];
+        let mBoxArray = [];
+        groupByFemaleAge.forEach(function (key) {
+          console.log(key);
+          var boxValue = d3.rollup(key, function (d) {
+            console.log(d);
+            q1 = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), .25)
+            median = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), .5)
+            q3 = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), .75)
+            interQuantileRange = q3 - q1
+            min = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), 0)
+            max = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), 1)
+            return ({ q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max })
+          });
+          fBoxArray.push(boxValue);
+        })
+
+        groupByMaleAge.forEach(function (key) {
+          console.log(key);
+          var boxValue = d3.rollup(key, function (d) {
+            console.log(d);
+            q1 = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), .25)
+            median = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), .5)
+            q3 = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), .75)
+            min = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), 0)
+            max = d3.quantile(d.map(function (g) { return g.Age; }).sort(d3.ascending), 1)
+            return ({ q1: q1, median: median, q3: q3, min: min, max: max })
+          });
+          mBoxArray.push(boxValue);
+        })
+        console.log(fBoxArray);
+        console.log(mBoxArray);
+
+        var fStat = new Map();
+        var mStat = new Map();
+        for (let i = 0; i < bottomLabel2.length; i++) {
+          mStat.set(bottomLabel2[i], mBoxArray[i]);
+        }
+        for (let i = 0; i < bottomLabel3.length; i++) {
+          fStat.set(bottomLabel3[i], fBoxArray[i]);
+        }
+
+
+        console.log(fStat);
+        console.log(mStat);
+
+        var boxWidth = 40
+
+        // Add individual points with jitter
+        // var jitterWidth = 1
+        // svg2
+        //   .selectAll("indPoints")
+        //   .data(fData)
+        //   .enter()
+        //   .append("circle")
+        //   .attr("cx", d => xScale(d[0] - jitterWidth / 2 + Math.random() * jitterWidth) )
+        //   .attr("cy", d =>  yScale(d['Age']) )
+        //   .attr("r", 4)
+        //   .style("fill", "pink")
+        //   .attr("opacity","0.2")
+
+        //vertical lines
+
+        //female
+        chartArea2
+          .selectAll("vertLines")
+          .data(fStat)
+          .enter()
+          .append("line")
+          .attr("x1", d => xScale(d[0]) - boxWidth / 2)
+          .attr("x2", d => xScale(d[0]) - boxWidth / 2)
+          .attr("y1", d => yScale(d[1]["min"]))
+          .attr("y2", d => yScale(d[1]["max"]))
+          .attr("stroke", "#d95757")
+          .attr("stroke-width","5")
+          .style("width", 40);
+
+        //male
+        chartArea2
+          .selectAll("vertLines")
+          .data(mStat)
+          .enter()
+          .append("line")
+          .attr("x1", d => xScale(d[0]) + boxWidth / 2)
+          .attr("x2", d => xScale(d[0]) + boxWidth / 2)
+          .attr("y1", d => yScale(d[1]["min"]))
+          .attr("y2", d => yScale(d[1]["max"]))
+          .attr("stroke", "#009aab")
+          .attr("stroke-width","5")
+          .style("width", 40);
+
+
+        //rectangles
+
+        //female
+        chartArea2
+          .selectAll("boxes")
+          .data(fStat)
+          .enter()
+          .append("rect")
+          .attr("x", d => xScale(d[0] - boxWidth / 2) + 139)
+          .attr("y", d => yScale(d[1]["q3"]))
+          .attr("height", d => yScale(d[1]["q1"]) - yScale(d[1]["q3"]))
+          .attr("width", boxWidth)
+          .attr("stroke", "black")
+          .style("fill", "pink")
+
+        //male
+        chartArea2
+          .selectAll("boxes")
+          .data(mStat)
+          .enter()
+          .append("rect")
+          .attr("x", d => xScale(d[0] - boxWidth / 2) + 179)
+          .attr("y", d => yScale(d[1]["q3"]))
+          .attr("height", d => yScale(d[1]["q1"]) - yScale(d[1]["q3"]))
+          .attr("width", boxWidth)
+          .attr("stroke", "black")
+          .style("fill", "lightblue")
+
+        //Median lines
+
+        //female
+        chartArea2
+          .selectAll("medianLines")
+          .data(fStat)
+          .enter()
+          .append("line")
+          .attr("x1", d => xScale(d[0]) - 50)
+          .attr("x2", d => xScale(d[0]))
+          .attr("y1", d => yScale(d[1]["median"]))
+          .attr("y2", d => yScale(d[1]["median"]))
+          .attr("stroke", "black")
+          .style("width", 80)
+
+        //male
+        chartArea2
+          .selectAll("medianLines")
+          .data(mStat)
+          .enter()
+          .append("line")
+          .attr("x1", d => xScale(d[0]))
+          .attr("x2", d => xScale(d[0]) + 50)
+          .attr("y1", d => yScale(d[1]["median"]))
+          .attr("y2", d => yScale(d[1]["median"]))
+          .attr("stroke", "black")
+          .style("width", 80)
+
+        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 1180).attr("y", 25).style("fill", "pink").attr("opacity", 1);
+        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 1180).attr("y", 55).style("fill", "lightblue").attr("opacity", 1);
+        svg2.append("text").attr("x", 1195).attr("y", 31).text("Female").style("font-size", "15px").style("font-weight", "600").attr("alignment-baseline", "middle").attr("fill", "#d95757").attr("opacity", 1);
+        svg2.append("text").attr("x", 1195).attr("y", 61).text("Male").style("font-size", "15px").style("font-weight", "600").attr("alignment-baseline", "middle").attr("fill", "#009aab").attr("opacity", 1);
+
+      });
+
+
   </script>
 
 
 
 </body>
+
+<style>
+  .gridlines line {
+    stroke: #bbb;
+  }
+
+  .gridlines .domain {
+    stroke: none;
+  }
+
+  .axis .domain {
+    stroke: #bbb;
+  }
+</style>
