@@ -51,7 +51,10 @@
   <div>
     <svg id="figure1" height="550" width="1450"></svg>
     <p class="stageOne"> Comparison of Male & Female Athletes' Ages in Olympics from year 1896 to 2016</p>
-    <p class="stageTwo"> The chart is designed to study the variation of Olympics athletes' age ranges from year 1896 to 2016 and its potential relationship with athletes' gender. </p>
+    <p class="stageTwo"> The chart is designed to study the variation of Olympic athletes' age ranges from year 1896 to 2016 and its potential relationship with athletes' gender.
+      We select every 12 years from 1896 as our x values and specifically replace year 1944 with 1948 as the Olympics was canceled during war time, leading to a lack of corresponding data. Also,
+      in year 1896 there isn't any female athletes' data since women was not entitled to participate in the first modern Summer Olympics.
+    </p>
     <svg id="figure2" height="550" width="1450" style="margin-top:20px"></svg>
   </div>
 
@@ -599,8 +602,9 @@
           .attr("x2", d => xScale(d[0]) - boxWidth / 2)
           .attr("y1", d => yScale(d[1]["min"]))
           .attr("y2", d => yScale(d[1]["max"]))
-          .attr("stroke", "#d95757")
-          .attr("stroke-width", "4")
+          .attr("stroke", "#ff7c7cb4")
+          .attr("stroke-width", "3")
+          .attr("opacity",0.7)
           .style("width", 40);
 
         //male
@@ -613,8 +617,9 @@
           .attr("x2", d => xScale(d[0]) + boxWidth / 2)
           .attr("y1", d => yScale(d[1]["min"]))
           .attr("y2", d => yScale(d[1]["max"]))
-          .attr("stroke", "#009aab")
-          .attr("stroke-width", "4")
+          .attr("stroke", "#60acfcb4")
+          .attr("stroke-width", "3")
+          .attr("opacity",0.7)
           .style("width", 40);
 
 
@@ -631,7 +636,7 @@
           .attr("height", d => yScale(d[1]["q1"]) - yScale(d[1]["q3"]))
           .attr("width", boxWidth)
           .attr("stroke", "black")
-          .style("fill", "pink")
+          .style("fill", "#ff7c7cb4")
 
         //male
         chartArea2
@@ -644,7 +649,7 @@
           .attr("height", d => yScale(d[1]["q1"]) - yScale(d[1]["q3"]))
           .attr("width", boxWidth)
           .attr("stroke", "black")
-          .style("fill", "lightblue")
+          .style("fill", "#60acfcb4")
 
         //Median lines
 
@@ -675,10 +680,10 @@
           .style("width", 80)
 
         const trans = 200;
-        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055 + trans).attr("y", 25).style("fill", "pink").attr("opacity", 1);
-        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055 + trans).attr("y", 55).style("fill", "lightblue").attr("opacity", 1);
-        svg2.append("text").attr("x", 1073 + trans).attr("y", 31).text("Female").style("font-size", "15px").style("font-weight", "600").attr("alignment-baseline", "middle").attr("fill", "#d95757").attr("opacity", 1);
-        svg2.append("text").attr("x", 1073 + trans).attr("y", 61).text("Male").style("font-size", "15px").style("font-weight", "600").attr("alignment-baseline", "middle").attr("fill", "#009aab").attr("opacity", 1);
+        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055 + trans).attr("y", 25).style("fill", "#ff7c7cb4").attr("opacity", 1);
+        svg2.append("rect").attr("width", 10).attr("height", 10).attr("x", 1055 + trans).attr("y", 55).style("fill", "#60acfcb4").attr("opacity", 1);
+        svg2.append("text").attr("x", 1073 + trans).attr("y", 31).text("Female").style("font-size", "15px").style("font-weight", "600").attr("alignment-baseline", "middle").attr("fill", "#ff7c7cb4").attr("opacity", 1);
+        svg2.append("text").attr("x", 1073 + trans).attr("y", 61).text("Male").style("font-size", "15px").style("font-weight", "600").attr("alignment-baseline", "middle").attr("fill", "#60acfcb4").attr("opacity", 1);
 
         svg2.attr("transform", "translate(" + (document.body.clientWidth - width - 200) / 2 + "," + margin.top + ")");
       });
