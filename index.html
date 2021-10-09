@@ -3,11 +3,12 @@
 
   <style>
     h1 {
-      background-color: #60acfc;
-      padding: 25px 50px;
+      background-color: #60acfcb4;
+      padding:25px 50px;
       font-size: 36px;
-      text-indent: 50px;
-      font-family: "Arial Black", Gadget, sans-serif;
+      /* text-indent:50px; */
+      font-family:"Arial Black", Gadget, sans-serif	;
+      /* opacity: 0.6; */
     }
 
     h1.headline {
@@ -15,7 +16,6 @@
       margin-bottom: 0px;
       margin-right: calc(15vw);
       margin-left: calc(15vw);
-      /* opacity: 0.6; */
     }
 
     p {
@@ -27,8 +27,8 @@
     }
 
     p.stageOne {
-      background-color: #ff7c7c;
-      padding: 15px 50px;
+      background-color: #ff7c7cb4;
+      padding:15px 50px;
       font-size: 24px;
     }
 
@@ -50,7 +50,7 @@
 
   <div>
     <svg id="figure1" height="550" width="1450"></svg>
-    <p class="stageOne"> Comparison of Male & Female Athletes' Ages in Olympics </p>
+    <p class="stageOne"> Comparison of Male & Female Athletes' Ages in Olympics from year 1896 to 2016</p>
     <p class="stageTwo"> The chart is designed to study the variation of Olympics athletes' age ranges from year 1896 to 2016 and its potential relationship with athletes' gender. </p>
     <svg id="figure2" height="550" width="1450" style="margin-top:20px"></svg>
   </div>
@@ -226,7 +226,7 @@
           .attr("transform", `translate(${margin.left},${margin.top})`);
 
         // Create the background Male-Female Rectangle Chart
-        const rectNumX = 40;
+        const rectNumX = 39;
         const rectNumY = 19;
         var dict = new Array();
         for (var i = 0; i <= rectNumX; i++) {
@@ -270,8 +270,8 @@
           }
         }
 
-        specColumn = [5, 11, 12];
-
+        specColumn = [6, 7, 14, 15];
+        
         function specColor(i, j) {
           if (!specColumn.includes(i)) {
             return judge(aScale(i), bScale(j));
