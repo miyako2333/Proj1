@@ -3,11 +3,12 @@
 
   <style>
     h1 {
-      background-color: #60acfc;
+      background-color: #60acfcb4;
       padding:25px 50px;
       font-size: 36px;
-      text-indent:50px;
+      /* text-indent:50px; */
       font-family:"Arial Black", Gadget, sans-serif	;
+      /* opacity: 0.6; */
     }
 
     h1.headline {
@@ -15,7 +16,6 @@
       margin-bottom: 0px;
       margin-right: calc(15vw);
       margin-left: calc(15vw);
-      /* opacity: 0.6; */
     }
 
     p {
@@ -27,7 +27,7 @@
     }
 
     p.stageOne {
-      background-color: #ff7c7c;
+      background-color: #ff7c7cb4;
       padding:15px 50px;
       font-size: 24px;
     }
@@ -234,7 +234,7 @@
           .attr("transform", `translate(${margin.left},${margin.top})`);
 
         // Create the background Male-Female Rectangle Chart
-        const rectNumX = 40;
+        const rectNumX = 39;
         const rectNumY = 19;
         var dict = new Array();
         for (var i = 0; i <= rectNumX; i++) {
@@ -278,7 +278,7 @@
           }
         }
 
-        specColumn = [5, 11, 12];
+        specColumn = [6, 7, 14, 15];
 
         function specColor(i, j) {
           if (!specColumn.includes(i)) {
