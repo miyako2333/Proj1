@@ -36,17 +36,25 @@
       background-color: white;
       font-size: 24px;
     }
+
+    p.stageThree {
+      margin-top: 0px;
+      margin-bottom: 10px;
+      background-color: white;
+      font-size: 22px;
+    }
   </style>
 </head>
 
 <body>
 
-  <h1 class="headline"> The Gender Investigation of Olympics </h1>
+  <h1 class="headline"> A Gender Investigation of Olympics </h1>
 
-  <p class="stageOne"> The Female Athletes In Olympics </p>
+  <p class="stageOne"> Trends of the Proportion of Female Athletes in Olympics from 1986 - 2016 </p>
   <p class="stageTwo"> The figure aims to show the female attendees percentage in the Olympic Games based on different
     regions. </p>
-
+    <p class="stageThree"> *The <font color="#ff7c7c">background squares RED</font> tells the percentage of women athletes, the <font color="#60acfc">background squares BLUE</font>
+    means the male athletes and the <font color="lightgrey">background squares GREY</font> means the war period which the Olympics did not hold. </p>
 
   <div>
     <svg id="figure1" height="550" width="1450"></svg>
@@ -274,7 +282,7 @@
         }
 
         specColumn = [6, 7, 14, 15];
-        
+
         function specColor(i, j) {
           if (!specColumn.includes(i)) {
             return judge(aScale(i), bScale(j));
@@ -342,6 +350,8 @@
           .attr("transform", `translate(${margin.left},${chartHeight + margin.top + 10})`)
           .attr("color", "lightgrey")
         // .call(bottomGridlines);
+        svg.append("text").attr("x", 1250).attr("y", 527).attr("fill", "black").attr("font-size", "13px").attr("font-weight", "400").text("Year");
+        svg.append("text").attr("x", 45).attr("y", 11).attr("fill", "black").attr("font-size", "13px").attr("font-weight", "400").text("Female Percentage");
 
         function line_chart(lst, color) {
           for (var i = 0; i < yearList.length - 1; i++) {
